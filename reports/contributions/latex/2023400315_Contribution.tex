@@ -1,0 +1,45 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times New Roman
+\usepackage{setspace} % For 1.5 spacing
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+
+\onehalfspacing % Enforce 1.5 line spacing
+
+\begin{document}
+
+\begin{center}
+    \Large\textbf{Individual Contribution Report} \\
+    \vspace{0.5cm}
+    \normalsize
+    \textbf{Name:} Yüksel Ege Boyacı \\
+    \textbf{Student ID:} 2023400315 \\
+    \textbf{Group Number:} \#31
+\end{center}
+
+\vspace{0.5cm}
+
+\section*{Tasks \& Contributions}
+For this project, Tuğçe and I split the database entities to make the workload manageable. For both Part 1 (ER diagram) and Part 2 (SQL DDL), I took care of the architecture, relationships, and constraints for the following entities:
+\begin{itemize}
+    \item \textbf{Stadium (Entity):} Modeling the stadium details and enforcing unique capacity and location constraints.
+    \item \textbf{Competition (Entity):} Capturing the league/tournament dimensions, seasons, and structural constraints.
+    \item \textbf{Match (Relation/Entity):} Designing the core matchup mechanism connecting stadiums, competitions, referees, and the two participating clubs.
+    \item \textbf{Match Participation \& Stats (Relation):} Constructing the complex many-to-many relationship between players and matches, keeping track of detailed game statistics (goals, assists, cards, minutes played) and enforcing strict bounds on these metrics.
+\end{itemize}
+Besides writing the SQL statements and drawing the ER diagram components for my parts, I also handled putting together and formatting the final Part 1 report in LaTeX, making sure all of our un-expressible constraints were listed properly.
+
+\section*{Collaboration \& Challenges}
+Tuğçe and I met in person a few times to make sure our parts fit together correctly. It was really helpful to cross-check our ER diagrams and SQL foreign keys face-to-face.
+
+One of the hardest parts of the design process was figuring out how to represent Permanent vs. Loan contracts in the ER diagram since loans depend on an existing permanent contract. We also spent a lot of time arguing over which relationships should be total versus partial participation, and which ones needed key constraints to accurately reflect the project description rules.
+
+\section*{Self-Assessment}
+I already had some experience working with SQL and MySQL, so writing the \texttt{CREATE TABLE} statements and \texttt{CHECK} constraints in Part 2 was pretty straightforward for me. However, creating a formal conceptual ER diagram from scratch was completely new for me. It was challenging to learn how to translate complex project rules into the  ER notation format, but it definitely helped me understand why planning is necessary before you start coding the database.
+
+\section*{Use of AI Tools}
+I used AI tools (like Gemini/Claude) mainly to cross-check our work. After we finished our ER diagram and the first draft of our SQL file, I used AI to see if we missed any tricky constraints from the project PDF. It helped us catch a few things we couldn't show in the ER diagram, like the manager-club temporal overlap rules. It also recommended fixes for some MySQL-specific syntax errors we ran into with inline \texttt{CHECK} constraints. Finally, I used AI to help format and generate these very LaTeX reports to save time on styling.
+
+\end{document}
