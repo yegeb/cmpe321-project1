@@ -1,0 +1,34 @@
+Legend:
+
+Blue rectangle = Entity
+Yellow oval = Attribute
+Green diamond = Relationship
+Red triangle = ISA relationship
+Underlined = Primary Key
+
+Bold arrow toward relation = total participation + key constraint
+Thin arrow toward relation = partial participation + key constraint
+Bold line toward relation = total participation + no key constraint
+Thin line toward relation = partial participation + no key constraint
+
+Constraints not expressible in ER:
+1. (stadium_name, city) must be UNIQUE
+2. (competition name, season) must be UNIQUE
+3. attendance ≤ stadium capacity
+4. No two matches within 120 min at same stadium
+5. No club in two matches within 120 min
+6. No referee in two matches within 120 min
+7. Max 11 starters per club per match
+8. Max 23 squad players per match per club
+9. Red/yellow card suspension rules
+10. Numeric constraints such as market_value > 0, height_cm > 0, and years_experience ≥ 0 must hold
+11. The foundation year of a club must be a valid past year
+12. A player may not have two active contracts of the same type at the same time
+13. A player may be associated with at most two clubs simultaneously (one permanent and one loan)
+14. The end date of a contract must be strictly later than its start date
+15. Transfer constraints: Free transfer fee=0; Purchase/Loan fee>0; Loan transfer requires an active Permanent contract with parent club (and parent club must match from_club_id)
+16. Manager/Club temporal exclusivity in Leads (a Manager cannot lead two Clubs simultaneously, and a Club cannot have two Managers simultaneously)
+17. A person's date_of_birth must be strictly in the past
+18. A player cannot appear in the same match as both a home-team and away-team participant
+19. 2 yellow cards in a single match automatically result in a red card (derived state)
+20. The Match Result (Win/Loss/Draw) is dynamically derived from home/away goals, rather than explicitly stored as an independent attribute

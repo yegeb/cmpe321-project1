@@ -1,0 +1,80 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=1in]{geometry}
+
+\title{\textbf{Part 1: Conceptual Database Design}}
+\author{
+    \begin{tabular}{c}
+    Yüksel Ege Boyacı -- 2023400315 \\
+    Tuğçe Yücel -- 2022400105
+    \end{tabular}
+}
+\date{}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Entity-Relationship (ER) Diagram}
+
+The conceptual database design was created using the standard Entity-Relationship (ER) notation described in the lectures. The diagram below models all entity sets, relationship sets, key constraints, participation constraints, and class hierarchies (Is-A relationships) as specified in the project requirements.
+
+\begin{figure}[H]
+    \centering
+    % Note: You may need to adjust the path depending on where your main .tex file is compiled from.
+    % Assuming main file is in reports/latex or similar:
+    \includegraphics[width=\textwidth]{er_diagram_final.png}
+    \caption{Conceptual ER Diagram for TransferDB}
+    \label{fig:er_diagram}
+\end{figure}
+
+\newpage
+\section{Legend}
+The graphical notation used in the ER diagram follows these conventions:
+\begin{itemize}
+    \item \textbf{Blue rectangle:} Entity
+    \item \textbf{Yellow oval:} Attribute
+    \item \textbf{Green diamond:} Relationship
+    \item \textbf{Red triangle:} ISA relationship
+    \item \textbf{Underlined:} Primary Key
+    \item \textbf{Bold arrow toward relation:} Total participation + Key constraint
+    \item \textbf{Thin arrow toward relation:} Partial participation + Key constraint
+    \item \textbf{Bold line toward relation:} Total participation + No key constraint
+    \item \textbf{Thin line toward relation:} Partial participation + No key constraint
+\end{itemize}
+
+\newpage
+\section{Constraints Not Expressible in ER Design}
+
+While the ER diagram effectively captures the core entities and overall structural relationships, certain complex business rules, cross-table temporal validations, and numeric derivations cannot be natively expressed in standard ER diagramming notation. These constraints will be addressed at the logical layer via SQL \texttt{CHECK} constraints or database triggers (or application-level logic). The un-expressible constraints are as follows:
+
+\begin{enumerate}
+    \item (\texttt{stadium\_name}, \texttt{city}) must be UNIQUE.
+    \item (\texttt{competition\_name}, \texttt{season}) must be UNIQUE.
+    \item \texttt{attendance} $\le$ \texttt{stadium capacity}.
+    \item No two matches within 120 minutes at the same stadium.
+    \item No club in two matches within 120 minutes.
+    \item No referee in two matches within 120 minutes.
+    \item Max 11 starters per club per match.
+    \item Max 23 squad players per match per club.
+    \item Red/yellow card suspension rules (e.g., 5 yellows = 1 match suspension).
+    \item Numeric constraints such as \texttt{market\_value} $> 0$, \texttt{height\_cm} $> 0$, and \texttt{years\_experience} $\ge 0$ must hold.
+    \item The foundation year of a club must be a valid past year.
+    \item A player may not have two active contracts of the same type at the same time.
+    \item A player may be associated with at most two clubs simultaneously (one permanent and one loan).
+    \item The end date of a contract must be strictly later than its start date.
+    \item Transfer constraints: Free transfer fee $= 0$; Purchase/Loan fee $> 0$; Loan transfer requires an active Permanent contract with parent club (and the parent club must match \texttt{from\_club\_id}).
+    \item Manager/Club temporal exclusivity in Leads (a Manager cannot lead two Clubs simultaneously, and a Club cannot have two Managers simultaneously).
+    \item A person's \texttt{date\_of\_birth} must be strictly in the past.
+    \item A player cannot appear in the same match as both a home-team and away-team participant.
+    \item 2 yellow cards in a single match automatically result in a red card (derived state).
+    \item The Match Result (Win/Loss/Draw) is dynamically derived from home/away goals, rather than explicitly stored as an independent attribute.
+\end{enumerate}
+
+\end{document}
